@@ -50,7 +50,7 @@ class MediaPlayerService: MediaBrowserServiceCompat() {
 
     private lateinit var mediaPlayerNotificationManager: MediaPlayerNotificationManager
     private var currentPlayingMedia: MediaMetadataCompat? = null
-    private val isPlayerInitialized = false
+    private var isPlayerInitialized = false
     var isForegroundService: Boolean = false
 
     companion object {
@@ -115,6 +115,14 @@ class MediaPlayerService: MediaBrowserServiceCompat() {
                 val resultSent = mediaSource.whenReady { isInitialized ->
                     if (isInitialized) {
                         result.sendResult(mediaSource.asMediaItem())
+                        if (!isPlayerInitialized && mediaSource.audioMediaMetaData.isNotEmpty()) {
+                            preparePlayer(
+                                mediaSource.audioMediaMetaData,
+                                mediaSource.audioMediaMetaData[0],
+                                false
+                            )
+                            isPlayerInitialized = true
+                        }
                     } else {
                         result.sendResult(null)
                     }
