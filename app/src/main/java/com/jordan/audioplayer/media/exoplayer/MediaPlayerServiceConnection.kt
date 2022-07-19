@@ -23,7 +23,7 @@ class MediaPlayerServiceConnection @Inject constructor(
         get() = _playBackState
 
     private val _isConnected: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    val isConnected: StateFlow<Boolean?>
+    val isConnected: StateFlow<Boolean>
         get() = _isConnected
 
     val currentPlayingAudio = mutableStateOf<Audio?>(null)
