@@ -115,14 +115,6 @@ class MediaPlayerService: MediaBrowserServiceCompat() {
                 val resultSent = mediaSource.whenReady { isInitialized ->
                     if (isInitialized) {
                         result.sendResult(mediaSource.asMediaItem())
-                        if (!isPlayerInitialized && mediaSource.audioMediaMetaData.isNotEmpty()) {
-                            preparePlayer(
-                                mediaSource.audioMediaMetaData,
-                                mediaSource.audioMediaMetaData[0],
-                                false
-                            )
-                            isPlayerInitialized = true
-                        }
                     } else {
                         result.sendResult(null)
                     }
@@ -142,6 +134,7 @@ class MediaPlayerService: MediaBrowserServiceCompat() {
         extras: Bundle?,
         result: Result<Bundle>
     ) {
+        super.onCustomAction(action, extras, result)
         when (action) {
             K.START_MEDIA_PLAY_ACTION -> {
                 mediaPlayerNotificationManager.showNotificationManager(exoPlayer)

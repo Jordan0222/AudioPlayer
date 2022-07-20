@@ -26,9 +26,12 @@ class AudioViewModel @Inject constructor(
     serviceConnection: MediaPlayerServiceConnection
 ): ViewModel() {
 
-    var audioList = mutableListOf<Audio>()
+    var audioState by mutableStateOf(AudioState())
+        private set
+
     val currentPlayingAudio = serviceConnection.currentPlayingAudio
     private val isConnected = serviceConnection.isConnected
+
     lateinit var rootMediaId: String
     var currentPlayBackPosition by mutableStateOf(0L)
     private var updatePosition = true
@@ -57,7 +60,10 @@ class AudioViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            audioList += getAndFormatAudioData()
+            val audioList = getAndFormatAudioData()
+            audioState = audioState.copy(
+                audioList = audioList
+            )
             isConnected.collect {
                 if (it) {
                     rootMediaId = serviceConnection.rootMediaId
@@ -74,7 +80,7 @@ class AudioViewModel @Inject constructor(
         return repository.getAudioData().map {
             val displayName = it.displayName.substringBefore(".")
             val artist = if (it.artist.contains("<unknown>")) {
-                "Unknown Artist"
+                ""
             } else it.artist
             it.copy(
                 displayName = displayName,
@@ -84,7 +90,7 @@ class AudioViewModel @Inject constructor(
     }
 
     fun playAudio(currentAudio: Audio) {
-        serviceConnection.playAudio(audioList)
+        serviceConnection.playAudio(audioState.audioList)
         if (currentAudio.id == currentPlayingAudio.value?.id) {
             if (isAudioPlaying) {
                 serviceConnection.transportControl.pause()
