@@ -14,9 +14,9 @@ private val DarkColorPalette = darkColors(
 )
 
 private val LightColorPalette = lightColors(
-    primary = Orange200,
+    primary = Color.White,
     primaryVariant = Blue700,
-    secondary = Orange200,
+    secondary = Color.White,
     background = BackgroundColor.copy(
         alpha = 0.8f
     ),

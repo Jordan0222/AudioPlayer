@@ -3,18 +3,13 @@ package com.jordan.audioplayer.presentation.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MusicNote
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.outlined.PlayCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -26,7 +21,8 @@ import kotlin.math.floor
 @Composable
 fun AudioItem(
     audio: Audio,
-    onItemClick: (id: Long) -> Unit
+    onItemClick: (id: Long) -> Unit,
+    audioPlaying: Boolean
 ) {
     Row(
         modifier =  Modifier
@@ -43,13 +39,23 @@ fun AudioItem(
             icon = Icons.Default.MusicNote,
             border = BorderStroke(
                 width = 1.dp,
-                color = MaterialTheme.colors.onSurface
+                color = if (audioPlaying) {
+                    TimeColor
+                } else {
+                    MaterialTheme.colors.onSurface.copy(
+                        alpha = 0.9f
+                    )
+                }
             ),
             modifier = Modifier.size(35.dp),
             backgroundColor = MaterialTheme.colors.background,
-            color = MaterialTheme.colors.onSurface.copy(
-                alpha = 0.9f
-            )
+            color = if (audioPlaying) {
+                TimeColor
+            } else {
+                MaterialTheme.colors.onSurface.copy(
+                    alpha = 0.9f
+                )
+            }
         ) {}
         Spacer(modifier = Modifier.width(16.dp))
         Text(

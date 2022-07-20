@@ -3,18 +3,17 @@ package com.jordan.audioplayer.presentation
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.jordan.audioplayer.data.model.Audio
 import com.jordan.audioplayer.presentation.components.AudioItem
 import com.jordan.audioplayer.presentation.components.BottomBarPlayer
-import com.jordan.audioplayer.ui.theme.AudioPlayerTheme
+import kotlinx.coroutines.launch
 
 
 private val dummyAudioList = listOf(
@@ -80,28 +79,39 @@ fun AudioListScreen(
     audioViewModel: AudioViewModel = hiltViewModel()
 ) {
     val scaffoldState = rememberBottomSheetScaffoldState()
+
     val state = audioViewModel.audioState
 
     val animatedHeight by animateDpAsState(
-        targetValue = if (audioViewModel.currentPlayingAudio.value == null) 0.dp
-                    else BottomSheetScaffoldDefaults.SheetPeekHeight
+        targetValue = if (audioViewModel.currentPlayingAudio.value == null) {
+            0.dp
+        } else BottomSheetScaffoldDefaults.SheetPeekHeight
     )
 
     BottomSheetScaffold(
         sheetContent = {
-            audioViewModel.currentPlayingAudio.value?.let {
+            audioViewModel.currentPlayingAudio.value?.let { audio ->
                 BottomBarPlayer(
                     progress = audioViewModel.currentAudioProgress.value,
-                    onProgressChange = {
-                       audioViewModel.seekTo(it)
+                    onProgressChange = { progress ->
+                       audioViewModel.seekTo(progress)
                     },
-                    audio = it,
+                    audio = audio,
                     isAudioPlaying = audioViewModel.isAudioPlaying,
                     onStart = {
-                        audioViewModel.playAudio(it)
+                        audioViewModel.playAudio(audio)
                     },
                     onNext = {
                         audioViewModel.skipToNext()
+                    },
+                    onPrevious = {
+                        audioViewModel.skipToPrevious()
+                    },
+                    onForward10 = {
+                        audioViewModel.fastForward()
+                    },
+                    onRewind10 = {
+                        audioViewModel.rewind()
                     }
                 )
             }
@@ -114,11 +124,13 @@ fun AudioListScreen(
         ) {
             items(state.audioList.size) { i ->
                 val audio = state.audioList[i]
+                val audioPlaying = audioViewModel.currentPlayingAudio.value == audio
                 AudioItem(
                     audio = audio,
                     onItemClick = {
                         audioViewModel.playAudio(audio)
-                    }
+                    },
+                    audioPlaying = audioPlaying
                 )
                 if (i < state.audioList.size - 1) {
                     Divider()
