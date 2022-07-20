@@ -95,7 +95,7 @@ fun AudioListScreen(
                     onProgressChange = {
                        audioViewModel.seekTo(it)
                     },
-                    audio = audioViewModel.currentPlayingAudio.value!!,
+                    audio = it,
                     isAudioPlaying = audioViewModel.isAudioPlaying,
                     onStart = {
                         audioViewModel.playAudio(it)
@@ -112,13 +112,17 @@ fun AudioListScreen(
         LazyColumn(
             contentPadding = PaddingValues(bottom = 56.dp)
         ) {
-            items(state.audioList) { audio ->
+            items(state.audioList.size) { i ->
+                val audio = state.audioList[i]
                 AudioItem(
                     audio = audio,
                     onItemClick = {
                         audioViewModel.playAudio(audio)
                     }
                 )
+                if (i < state.audioList.size - 1) {
+                    Divider()
+                }
             }
         }
     }

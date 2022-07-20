@@ -17,7 +17,9 @@ private val LightColorPalette = lightColors(
     primary = Orange200,
     primaryVariant = Blue700,
     secondary = Orange200,
-    background = Blue700,
+    background = BackgroundColor.copy(
+        alpha = 0.8f
+    ),
     surface = Blue500,
     onSurface = Color.White,
 

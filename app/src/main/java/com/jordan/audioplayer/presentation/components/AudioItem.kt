@@ -1,16 +1,26 @@
 package com.jordan.audioplayer.presentation.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MusicNote
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.outlined.PlayCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.jordan.audioplayer.data.model.Audio
+import com.jordan.audioplayer.ui.theme.TimeColor
 import kotlin.math.floor
 
 @Composable
@@ -18,47 +28,47 @@ fun AudioItem(
     audio: Audio,
     onItemClick: (id: Long) -> Unit
 ) {
-    Card(
-        modifier = Modifier
+    Row(
+        modifier =  Modifier
             .fillMaxWidth()
-            .padding(8.dp)
+            .height(70.dp)
             .clickable {
                 onItemClick.invoke(audio.id)
-            }
+            },
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(8.dp)
-            ) {
-                Spacer(modifier = Modifier.size(4.dp))
-                Text(
-                    text = audio.displayName,
-                    style = MaterialTheme.typography.h6,
-                    overflow = TextOverflow.Clip,
-                    maxLines = 1
-                )
-                Spacer(modifier = Modifier.size(4.dp))
-                Text(
-                    text = audio.artist,
-                    style = MaterialTheme.typography.subtitle1,
-                    maxLines = 1,
-                    overflow = TextOverflow.Clip,
-                    color = MaterialTheme.colors
-                        .onSurface
-                        .copy(
-                            alpha = 0.5f
-                        )
-                )
-            }
-            Text(
-                text = timeStampToDuration(audio.duration.toLong())
+        Spacer(modifier = Modifier.width(16.dp))
+        PlayerIconItem(
+            icon = Icons.Default.MusicNote,
+            border = BorderStroke(
+                width = 1.dp,
+                color = MaterialTheme.colors.onSurface
+            ),
+            modifier = Modifier.size(35.dp),
+            backgroundColor = MaterialTheme.colors.background,
+            color = MaterialTheme.colors.onSurface.copy(
+                alpha = 0.9f
             )
-            Spacer(modifier = Modifier.size(8.dp))
-        }
+        ) {}
+        Spacer(modifier = Modifier.width(16.dp))
+        Text(
+            text = audio.displayName,
+            fontWeight = FontWeight.Normal,
+            fontSize = 16.sp,
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 2,
+            modifier = Modifier.weight(1f),
+            color = MaterialTheme.colors.onSurface.copy(
+                alpha = 0.9f
+            )
+        )
+        Spacer(modifier = Modifier.width(16.dp))
+        Text(
+            text = timeStampToDuration(audio.duration.toLong()),
+            color = TimeColor
+        )
+        Spacer(modifier = Modifier.width(8.dp))
     }
 }
 
