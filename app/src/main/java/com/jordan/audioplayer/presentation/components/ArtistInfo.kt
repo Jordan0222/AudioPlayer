@@ -36,7 +36,7 @@ fun ArtistInfo(
         Spacer(modifier = Modifier.width(spacing.spaceSmall))
         Text(
             text = audio.displayName,
-            fontWeight = FontWeight.Normal,
+            fontWeight = FontWeight.Bold,
             fontSize = 16.sp,
             overflow = TextOverflow.Ellipsis,
             maxLines = 2,

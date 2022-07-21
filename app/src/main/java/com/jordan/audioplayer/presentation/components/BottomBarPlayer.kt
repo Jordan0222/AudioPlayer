@@ -8,6 +8,7 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Slider
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Equalizer
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.MusicNote
@@ -19,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import com.jordan.audioplayer.data.model.Audio
 import com.jordan.audioplayer.ui.theme.AudioPlayerTheme
+import com.jordan.audioplayer.ui.theme.BlueLight
 import com.jordan.audioplayer.util.LocalSpacing
 
 private val audio = Audio(
@@ -60,16 +62,14 @@ fun BottomBarPlayer(
         ) {
             Spacer(modifier = Modifier.width(spacing.spaceMedium))
             PlayerIconItem(
-                icon = Icons.Default.MusicNote,
+                icon = Icons.Default.Equalizer,
                 border = BorderStroke(
                     width = 1.dp,
-                    color = MaterialTheme.colors.onSurface
+                    color = BlueLight
                 ),
                 modifier = Modifier.size(spacing.spaceLarge),
                 backgroundColor = MaterialTheme.colors.background,
-                color = MaterialTheme.colors.onSurface.copy(
-                    alpha = 0.9f
-                )
+                color = BlueLight
             ) {}
             ArtistInfo(
                 audio = audio,

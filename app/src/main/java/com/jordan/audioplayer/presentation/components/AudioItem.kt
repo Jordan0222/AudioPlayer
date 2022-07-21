@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Equalizer
 import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,7 +16,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jordan.audioplayer.data.model.Audio
-import com.jordan.audioplayer.ui.theme.TimeColor
+import com.jordan.audioplayer.ui.theme.BlueLight
 import com.jordan.audioplayer.util.LocalSpacing
 import kotlin.math.floor
 
@@ -39,11 +40,15 @@ fun AudioItem(
     ) {
         Spacer(modifier = Modifier.width(spacing.spaceMedium))
         PlayerIconItem(
-            icon = Icons.Default.MusicNote,
+            icon = if (audioPlaying) {
+                Icons.Default.MusicNote
+            } else {
+                Icons.Default.Equalizer
+            },
             border = BorderStroke(
                 width = 1.dp,
                 color = if (audioPlaying) {
-                    TimeColor
+                    BlueLight
                 } else {
                     MaterialTheme.colors.onSurface.copy(
                         alpha = 0.9f
@@ -53,7 +58,7 @@ fun AudioItem(
             modifier = Modifier.size(spacing.spaceLarge),
             backgroundColor = MaterialTheme.colors.background,
             color = if (audioPlaying) {
-                TimeColor
+                BlueLight
             } else {
                 MaterialTheme.colors.onSurface.copy(
                     alpha = 0.9f
@@ -63,7 +68,7 @@ fun AudioItem(
         Spacer(modifier = Modifier.width(spacing.spaceMedium))
         Text(
             text = audio.displayName,
-            fontWeight = FontWeight.Normal,
+            fontWeight = FontWeight.Bold,
             fontSize = 16.sp,
             overflow = TextOverflow.Ellipsis,
             maxLines = 2,
@@ -75,7 +80,8 @@ fun AudioItem(
         Spacer(modifier = Modifier.width(spacing.spaceMedium))
         Text(
             text = timeStampToDuration(audio.duration.toLong()),
-            color = TimeColor
+            color = BlueLight,
+            fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.width(spacing.spaceSmall))
     }
