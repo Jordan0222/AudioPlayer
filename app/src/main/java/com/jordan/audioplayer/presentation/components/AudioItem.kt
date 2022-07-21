@@ -41,9 +41,9 @@ fun AudioItem(
         Spacer(modifier = Modifier.width(spacing.spaceMedium))
         PlayerIconItem(
             icon = if (audioPlaying) {
-                Icons.Default.MusicNote
-            } else {
                 Icons.Default.Equalizer
+            } else {
+                Icons.Default.MusicNote
             },
             border = BorderStroke(
                 width = 1.dp,
