@@ -63,7 +63,11 @@ internal class MediaPlayerNotificationManager(
         }
 
         override fun getCurrentContentText(player: Player): CharSequence? {
-            return controller.metadata.description.subtitle
+            return if (controller.metadata.description.subtitle?.contains("<unknown>") == true) {
+                ""
+            } else {
+                controller.metadata.description.subtitle
+            }
         }
 
         override fun getCurrentLargeIcon(
