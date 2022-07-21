@@ -3,10 +3,7 @@ package com.jordan.audioplayer.presentation.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Slider
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Equalizer
 import androidx.compose.material.icons.filled.KeyboardArrowDown
@@ -15,10 +12,12 @@ import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import com.jordan.audioplayer.data.model.Audio
+import com.jordan.audioplayer.domain.TimeStampDuration
 import com.jordan.audioplayer.ui.theme.AudioPlayerTheme
 import com.jordan.audioplayer.ui.theme.BlueLight
 import com.jordan.audioplayer.util.LocalSpacing
@@ -37,6 +36,7 @@ private val audio = Audio(
 fun BottomBarPlayer(
     progress: Float,
     onProgressChange: (Float) -> Unit,
+    currentPosition: Long,
     audio: Audio,
     isAudioPlaying: Boolean,
     onStart: () -> Unit,
@@ -46,6 +46,7 @@ fun BottomBarPlayer(
     onRewind10: () -> Unit
 ) {
     val spacing = LocalSpacing.current
+    val timeStampDuration = TimeStampDuration()
 
     Column(
         modifier = Modifier
@@ -86,12 +87,32 @@ fun BottomBarPlayer(
             onForward10 = { onForward10.invoke() },
             onRewind10 = { onRewind10.invoke() }
         )
-        Slider(
-            value = progress,
-            onValueChange = { onProgressChange.invoke(it) },
-            valueRange = 0f..100f,
-            modifier = Modifier.padding(horizontal = spacing.spaceSmall)
-        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Spacer(modifier = Modifier.width(spacing.spaceMedium))
+            Text(
+                text = timeStampDuration(currentPosition),
+                color = MaterialTheme.colors.onSurface,
+                fontWeight = FontWeight.Bold
+            )
+            Slider(
+                value = progress,
+                onValueChange = { onProgressChange.invoke(it) },
+                valueRange = 0f..100f,
+                modifier = Modifier
+                    .padding(horizontal = spacing.spaceSmall)
+                    .weight(1f)
+            )
+            Text(
+                text = timeStampDuration(audio.duration.toLong()),
+                color = MaterialTheme.colors.onSurface,
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.width(spacing.spaceMedium))
+        }
     }
 }
 

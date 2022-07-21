@@ -83,7 +83,7 @@ fun AudioItem(
             color = BlueLight,
             fontWeight = FontWeight.Bold
         )
-        Spacer(modifier = Modifier.width(spacing.spaceSmall))
+        Spacer(modifier = Modifier.width(spacing.spaceMedium))
     }
 }
 

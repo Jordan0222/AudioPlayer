@@ -98,6 +98,7 @@ fun AudioListScreen(
                     onProgressChange = { progress ->
                        audioViewModel.seekTo(progress)
                     },
+                    currentPosition = audioViewModel.currentPlayBackPosition,
                     audio = audio,
                     isAudioPlaying = audioViewModel.isAudioPlaying,
                     onStart = {
