@@ -50,7 +50,6 @@ class MediaPlayerService: MediaBrowserServiceCompat() {
 
     private lateinit var mediaPlayerNotificationManager: MediaPlayerNotificationManager
     private var currentPlayingMedia: MediaMetadataCompat? = null
-    private var isPlayerInitialized = false
     var isForegroundService: Boolean = false
 
     companion object {

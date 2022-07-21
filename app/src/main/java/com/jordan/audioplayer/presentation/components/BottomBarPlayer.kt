@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import com.jordan.audioplayer.data.model.Audio
 import com.jordan.audioplayer.ui.theme.AudioPlayerTheme
+import com.jordan.audioplayer.util.LocalSpacing
 
 private val audio = Audio(
         uri = "".toUri(),
@@ -42,6 +43,8 @@ fun BottomBarPlayer(
     onForward10: () -> Unit,
     onRewind10: () -> Unit
 ) {
+    val spacing = LocalSpacing.current
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -55,14 +58,14 @@ fun BottomBarPlayer(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(spacing.spaceMedium))
             PlayerIconItem(
                 icon = Icons.Default.MusicNote,
                 border = BorderStroke(
                     width = 1.dp,
                     color = MaterialTheme.colors.onSurface
                 ),
-                modifier = Modifier.size(35.dp),
+                modifier = Modifier.size(spacing.spaceLarge),
                 backgroundColor = MaterialTheme.colors.background,
                 color = MaterialTheme.colors.onSurface.copy(
                     alpha = 0.9f
@@ -71,7 +74,7 @@ fun BottomBarPlayer(
             ArtistInfo(
                 audio = audio,
                 modifier = Modifier
-                    .height(56.dp)
+                    .height(spacing.sheetPeekHeight)
                     .weight(1f)
             )
         }
@@ -87,7 +90,7 @@ fun BottomBarPlayer(
             value = progress,
             onValueChange = { onProgressChange.invoke(it) },
             valueRange = 0f..100f,
-            modifier = Modifier.padding(horizontal = 8.dp)
+            modifier = Modifier.padding(horizontal = spacing.spaceSmall)
         )
     }
 }

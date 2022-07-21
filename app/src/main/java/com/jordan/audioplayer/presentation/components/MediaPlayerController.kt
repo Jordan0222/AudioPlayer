@@ -11,7 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
+import com.jordan.audioplayer.util.LocalSpacing
 
 @Composable
 fun MediaPlayerController(
@@ -22,10 +24,13 @@ fun MediaPlayerController(
     onForward10: () -> Unit,
     onRewind10: () -> Unit
 ) {
+    val spacing = LocalSpacing.current
+
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
-            .padding(4.dp),
+            .fillMaxWidth()
+            .padding(spacing.spaceExtraSmall),
         horizontalArrangement = Arrangement.Center
     ) {
         Icon(
@@ -35,10 +40,10 @@ fun MediaPlayerController(
                 .clickable {
                     onPrevious.invoke()
                 }
-                .size(28.dp)
+                .size(spacing.spaceLarge)
         )
 
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(spacing.spaceSmall))
 
         Icon(
             imageVector = Icons.Default.Replay10,
@@ -47,15 +52,15 @@ fun MediaPlayerController(
                 .clickable {
                     onRewind10.invoke()
                 }
-                .size(28.dp)
+                .size(spacing.spaceLarge)
         )
 
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(spacing.spaceSmall))
 
         PlayerIconItem(
             icon = if (isAudioPlaying) Icons.Default.Pause else Icons.Default.PlayArrow,
             backgroundColor = MaterialTheme.colors.background,
-            modifier = Modifier.size(35.dp),
+            modifier = Modifier.size(spacing.spaceLarge),
             border = BorderStroke(
                 width = 1.dp,
                 color = MaterialTheme.colors.onSurface
@@ -64,7 +69,7 @@ fun MediaPlayerController(
             onStart.invoke()
         }
 
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(spacing.spaceSmall))
 
         Icon(
             imageVector = Icons.Default.Forward10,
@@ -73,10 +78,10 @@ fun MediaPlayerController(
                 .clickable {
                     onForward10.invoke()
                 }
-                .size(28.dp)
+                .size(spacing.spaceLarge)
         )
 
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(spacing.spaceSmall))
 
         Icon(
             imageVector = Icons.Default.SkipNext,
@@ -85,7 +90,7 @@ fun MediaPlayerController(
                 .clickable {
                     onNext.invoke()
                 }
-                .size(28.dp)
+                .size(spacing.spaceLarge)
         )
     }
 }

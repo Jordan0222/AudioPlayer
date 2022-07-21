@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jordan.audioplayer.data.model.Audio
 import com.jordan.audioplayer.ui.theme.TimeColor
+import com.jordan.audioplayer.util.LocalSpacing
 import kotlin.math.floor
 
 @Composable
@@ -24,6 +25,8 @@ fun AudioItem(
     onItemClick: (id: Long) -> Unit,
     audioPlaying: Boolean
 ) {
+    val spacing = LocalSpacing.current
+
     Row(
         modifier =  Modifier
             .fillMaxWidth()
@@ -34,7 +37,7 @@ fun AudioItem(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Spacer(modifier = Modifier.width(16.dp))
+        Spacer(modifier = Modifier.width(spacing.spaceMedium))
         PlayerIconItem(
             icon = Icons.Default.MusicNote,
             border = BorderStroke(
@@ -47,7 +50,7 @@ fun AudioItem(
                     )
                 }
             ),
-            modifier = Modifier.size(35.dp),
+            modifier = Modifier.size(spacing.spaceLarge),
             backgroundColor = MaterialTheme.colors.background,
             color = if (audioPlaying) {
                 TimeColor
@@ -57,7 +60,7 @@ fun AudioItem(
                 )
             }
         ) {}
-        Spacer(modifier = Modifier.width(16.dp))
+        Spacer(modifier = Modifier.width(spacing.spaceMedium))
         Text(
             text = audio.displayName,
             fontWeight = FontWeight.Normal,
@@ -69,12 +72,12 @@ fun AudioItem(
                 alpha = 0.9f
             )
         )
-        Spacer(modifier = Modifier.width(16.dp))
+        Spacer(modifier = Modifier.width(spacing.spaceMedium))
         Text(
             text = timeStampToDuration(audio.duration.toLong()),
             color = TimeColor
         )
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(spacing.spaceSmall))
     }
 }
 

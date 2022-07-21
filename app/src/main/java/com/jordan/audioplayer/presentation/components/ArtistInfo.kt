@@ -18,19 +18,22 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jordan.audioplayer.data.model.Audio
+import com.jordan.audioplayer.util.LocalSpacing
 
 @Composable
 fun ArtistInfo(
     modifier: Modifier = Modifier,
     audio: Audio
 ) {
+    val spacing = LocalSpacing.current
+
     Row(
         modifier = modifier
-            .padding(8.dp)
-            .height(56.dp),
+            .padding(spacing.spaceSmall)
+            .height(spacing.sheetPeekHeight),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(spacing.spaceSmall))
         Text(
             text = audio.displayName,
             fontWeight = FontWeight.Normal,

@@ -13,6 +13,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.jordan.audioplayer.data.model.Audio
 import com.jordan.audioplayer.presentation.components.AudioItem
 import com.jordan.audioplayer.presentation.components.BottomBarPlayer
+import com.jordan.audioplayer.util.LocalSpacing
 import kotlinx.coroutines.launch
 
 
@@ -79,12 +80,13 @@ fun AudioListScreen(
     audioViewModel: AudioViewModel = hiltViewModel()
 ) {
     val scaffoldState = rememberBottomSheetScaffoldState()
+    val spacing = LocalSpacing.current
 
     val state = audioViewModel.audioState
 
     val animatedHeight by animateDpAsState(
         targetValue = if (audioViewModel.currentPlayingAudio.value == null) {
-            0.dp
+            spacing.default
         } else BottomSheetScaffoldDefaults.SheetPeekHeight
     )
 
@@ -120,7 +122,9 @@ fun AudioListScreen(
         sheetPeekHeight = animatedHeight
     ) {
         LazyColumn(
-            contentPadding = PaddingValues(bottom = 56.dp)
+            contentPadding = PaddingValues(
+                bottom = spacing.sheetPeekHeight
+            )
         ) {
             items(state.audioList.size) { i ->
                 val audio = state.audioList[i]
@@ -133,7 +137,11 @@ fun AudioListScreen(
                     audioPlaying = audioPlaying
                 )
                 if (i < state.audioList.size - 1) {
-                    Divider()
+                    Divider(
+                        color = MaterialTheme.colors.onSurface.copy(
+                            alpha = 0.9f
+                        )
+                    )
                 }
             }
         }
