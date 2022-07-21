@@ -6,12 +6,12 @@ import android.database.Cursor
 import android.provider.MediaStore
 import android.util.Log
 import androidx.annotation.WorkerThread
-import com.jordan.audioplayer.data.model.Audio
+import com.jordan.audioplayer.domain.model.Audio
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class ContentResolverHelper @Inject constructor(
-    @ApplicationContext val context: Context
+    private val context: Context
 ) {
     private var mCursor: Cursor? = null
 

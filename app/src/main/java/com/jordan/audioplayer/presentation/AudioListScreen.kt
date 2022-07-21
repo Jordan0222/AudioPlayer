@@ -6,15 +6,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.jordan.audioplayer.data.model.Audio
+import com.jordan.audioplayer.domain.model.Audio
 import com.jordan.audioplayer.presentation.components.AudioItem
 import com.jordan.audioplayer.presentation.components.BottomBarPlayer
 import com.jordan.audioplayer.util.LocalSpacing
-import kotlinx.coroutines.launch
 
 
 private val dummyAudioList = listOf(

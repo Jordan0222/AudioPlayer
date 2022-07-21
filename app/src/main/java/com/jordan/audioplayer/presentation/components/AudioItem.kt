@@ -15,7 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.jordan.audioplayer.data.model.Audio
+import com.jordan.audioplayer.domain.model.Audio
 import com.jordan.audioplayer.ui.theme.BlueLight
 import com.jordan.audioplayer.util.LocalSpacing
 import kotlin.math.floor

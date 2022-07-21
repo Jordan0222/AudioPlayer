@@ -1,4 +1,4 @@
-package com.jordan.audioplayer.domain
+package com.jordan.audioplayer.domain.use_case
 
 import kotlin.math.floor
 

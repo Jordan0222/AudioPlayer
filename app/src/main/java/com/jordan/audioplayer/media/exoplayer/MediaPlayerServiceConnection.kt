@@ -7,7 +7,7 @@ import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaControllerCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import androidx.compose.runtime.mutableStateOf
-import com.jordan.audioplayer.data.model.Audio
+import com.jordan.audioplayer.domain.model.Audio
 import com.jordan.audioplayer.media.constants.K
 import com.jordan.audioplayer.media.service.MediaPlayerService
 import dagger.hilt.android.qualifiers.ApplicationContext

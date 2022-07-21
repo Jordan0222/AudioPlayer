@@ -8,7 +8,7 @@ import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource
-import com.jordan.audioplayer.data.repository.AudioRepository
+import com.jordan.audioplayer.domain.repository.AudioRepository
 import javax.inject.Inject
 
 class MediaSource @Inject constructor(

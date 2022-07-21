@@ -1,4 +1,4 @@
-package com.jordan.audioplayer.data.model
+package com.jordan.audioplayer.domain.model
 
 import android.net.Uri
 
